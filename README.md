@@ -22,11 +22,7 @@ This repository contains a set of Python scripts for working with COCO (Common O
    ```
    cd COCO-JSON-Annotation-Master
    ```
-
-3. Run the desired script, e.g.:
-   ```
-   python coco_json_annotation_actions.py
-   ```
+3. Open Notebook: COCO_Json_Annotation_Actions.ipynb
 
 ## Main Functions
 

@@ -6,10 +6,14 @@ This repository contains a set of Python scripts for working with COCO (Common O
 
 - Check and display all annotations
 - Count and list available labels
-- Search images by label
-- Remove specific annotations
-- Merge similar annotations
-- Rename category labels
+- Search labels in images
+- Remove labels with and their corresponding annotations
+- Merge labels
+- Rename labels
+
+## Requirements
+- COCO JSON annotation file from CVAT, Roboflow, etc.
+- Jupyter Notebook
 
 ## Usage
 
@@ -22,33 +26,33 @@ This repository contains a set of Python scripts for working with COCO (Common O
    ```
    cd COCO-JSON-Annotation-Master
    ```
-3. Open Notebook: COCO_Json_Annotation_Actions.ipynb
+3. Open Notebook: COCO_Json_Annotation_Master.ipynb
 
 ## Main Functions
 
-### 1. Check All Annotations
+### 1. Check and Display All Annotations
 
 Displays details of all annotations in the COCO JSON file, including annotation ID, image ID, category ID, segmentation, area, bounding box, and crowd flag.
 
-### 2. Count and List Labels
+### 2. Count and List Available Labels
 
 Counts occurrences of each category and lists all unique labels alphabetically with their counts.
 
-### 3. Search Images by Label
+### 3. Search Labels in Images
 
 Allows searching for images containing a specific label, displaying image IDs, file names, and found labels.
 
-### 4. Remove Annotations
+### 4. Remove Labels
 
-Removes complete annotations for specified categories from the dataset.
+Removes complete annotations for specified categories / labels from the dataset.
 
-### 5. Merge Annotations
+### 5. Merge Categories / Labels
 
-Merges similar annotation categories into a single category.
+Merges categories / labels into a single category.
 
 ### 6. Rename Labels
 
-Renames category labels based on a provided mapping.
+Renames single or multiple category / labels at once based on a provided mapping.
 
 ## Contributing
 

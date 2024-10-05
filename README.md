@@ -47,8 +47,11 @@ pip install -r requirements.txt
 python app.py
 ```
 
-3. Set up the frontend:
+3. Set up the frontend / run the react app:
 ```bash
+#Go to the app folder
+cd "react app"
+
 # Install Node dependencies
 npm install
 

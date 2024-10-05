@@ -73,7 +73,6 @@ The application provides an intuitive web interface with the following tabs:
 
 ### API Endpoints
 
-## Table of Contents
 1. [Check and Display All Annotations](#1-check-and-display-all-annotations)
 2. [Count and List Available Labels](#2-count-and-list-available-labels)
 3. [Search Labels in Images](#3-search-labels-in-images)
@@ -265,7 +264,7 @@ For file downloads:
 - Use the "Save Response" > "Save to a file" option in Postman to save the modified JSON file
 
 ## 📖 React App Screenshot
-![{0CDDC393-635C-4A34-A210-DFB43C4B6550}](https://github.com/user-attachments/assets/ea9e034c-0823-4c64-82c4-ac7546179e22)
+![{D973DBB1-2872-4486-8781-BEA8FBA7A8D0}](https://github.com/user-attachments/assets/daafac21-bfef-4bbf-a9ff-0d912444ae4e)
 
 ![{A8F1DB94-DCC8-47CE-9884-8975A2D016D0}](https://github.com/user-attachments/assets/ef21627f-c963-451f-96da-da32f3d5ed27)
 

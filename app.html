@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>COCO Json Annotation Master</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Custom CSS -->
+  <style>
+    /* Custom styles */
+    body {
+      padding: 20px;
+    }
+    .spinner-border {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h2>COCO Json Annotation Master</h2>
+    <!-- File Upload Section -->
+    <div class="mt-4">
+      <div class="form-group">
+        <label for="jsonFile">Select JSON File</label>
+        <input type="file" class="form-control-file" id="jsonFile" accept=".json">
+      </div>
+      <button class="btn btn-primary" id="uploadProcessBtn">Upload and Process File</button>
+    </div>
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mt-4" id="functionTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="view-annotations-tab" data-toggle="tab" href="#view-annotations" role="tab">View Annotations</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="view-labels-tab" data-toggle="tab" href="#view-labels" role="tab">View Labels</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="search-labels-tab" data-toggle="tab" href="#search-labels" role="tab">Search Labels</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="remove-labels-tab" data-toggle="tab" href="#remove-labels" role="tab">Remove Labels</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="merge-labels-tab" data-toggle="tab" href="#merge-labels" role="tab">Merge Labels</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="rename-labels-tab" data-toggle="tab" href="#rename-labels" role="tab">Rename Labels</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="functionTabsContent">
+      <!-- View Annotations Tab -->
+      <div class="tab-pane fade show active" id="view-annotations" role="tabpanel">
+        <button class="btn btn-primary mt-3" id="viewAnnotationsBtn">View Annotations</button>
+        <div id="annotationsLoading" class="spinner-border text-primary" role="status" style="display: none;">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div id="annotationsList" class="mt-3"></div>
+      </div>
+      <!-- View Labels Tab -->
+      <div class="tab-pane fade" id="view-labels" role="tabpanel">
+        <div id="labelsLoading" class="spinner-border text-primary mt-3" role="status" style="display: none;">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div id="labelsContent" class="mt-3"></div>
+      </div>
+      <!-- Search Labels Tab -->
+      <div class="tab-pane fade" id="search-labels" role="tabpanel">
+        <div class="mt-3">
+          <div class="form-inline">
+            <input type="text" class="form-control mr-2" id="searchLabelInput" placeholder="Enter label to search">
+            <button class="btn btn-primary" id="searchLabelBtn">Search</button>
+          </div>
+        </div>
+        <div id="searchLoading" class="spinner-border text-primary mt-3" role="status" style="display: none;">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div id="searchResults" class="mt-3"></div>
+      </div>
+      <!-- Remove Labels Tab -->
+      <div class="tab-pane fade" id="remove-labels" role="tabpanel">
+        <div class="mt-3">
+          <p>Select labels to remove:</p>
+          <div id="removeLabelsList" class="mt-2"></div>
+          <button class="btn btn-primary mt-2" id="removeLabelsBtn">Remove Selected Labels</button>
+          <div id="removeLoading" class="spinner-border text-primary mt-2" role="status" style="display: none;">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <!-- Merge Labels Tab -->
+      <div class="tab-pane fade" id="merge-labels" role="tabpanel">
+        <div class="mt-3">
+          <div class="form-group">
+            <label for="mergeLabelsInput">Labels to merge (comma-separated)</label>
+            <input type="text" class="form-control" id="mergeLabelsInput" placeholder="Labels to merge">
+          </div>
+          <div class="form-group">
+            <label for="mergeTargetLabelInput">Target label name</label>
+            <input type="text" class="form-control" id="mergeTargetLabelInput" placeholder="Target label name">
+          </div>
+          <button class="btn btn-primary" id="mergeLabelsBtn">Merge Labels</button>
+          <div id="mergeLoading" class="spinner-border text-primary mt-2" role="status" style="display: none;">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <!-- Rename Labels Tab -->
+      <div class="tab-pane fade" id="rename-labels" role="tabpanel">
+        <div class="mt-3">
+          <div class="form-group">
+            <label for="renameMappingInput">Enter rename mapping in JSON format:</label>
+            <textarea class="form-control" id="renameMappingInput" rows="4" placeholder='e.g., {"oldLabel1": "newLabel1", "oldLabel2": "newLabel2"}'></textarea>
+          </div>
+          <button class="btn btn-primary" id="renameLabelsBtn">Rename Labels</button>
+          <div id="renameLoading" class="spinner-border text-primary mt-2" role="status" style="display: none;">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal for Downloading Modified File -->
+    <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Download Modified File</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#downloadModal').modal('hide');">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <a href="#" id="downloadLink" target="_blank" class="btn btn-primary">Download File</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#downloadModal').modal('hide');">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Custom JS -->
+  <script>
+    var file = null;
+    var labels = null;
+    var annotations = null;
+    var searchResults = null;
+    var selectedLabels = [];
+    var downloadUrl = '';
+
+    $('#jsonFile').on('change', function(event) {
+      file = event.target.files[0];
+      if (file) {
+        alert(file.name + ' file selected.');
+      }
+    });
+
+    $('#uploadProcessBtn').on('click', function() {
+      if (!file) {
+        alert('Please select a file first.');
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append('file', file);
+
+      // Show loading indicator
+      $('#labelsLoading').show();
+
+      $.ajax({
+        url: 'http://localhost:5000/labels',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          labels = response;
+          alert('Labels fetched successfully.');
+          // Update labelsContent
+          updateLabelsContent();
+          updateRemoveLabelsList();
+        },
+        error: function(xhr, status, error) {
+          alert('Error fetching labels.');
+        },
+        complete: function() {
+          $('#labelsLoading').hide();
+        }
+      });
+    });
+
+    function updateLabelsContent() {
+      if (labels) {
+        var labelsContent = '';
+        labelsContent += '<h4>Labels</h4>';
+        labelsContent += '<p>Total Unique Labels: ' + labels.unique_labels + '</p>';
+        labelsContent += '<p>Total Annotations: ' + labels.total_annotations + '</p>';
+        labelsContent += '<ul class="list-group">';
+        labels.labels.forEach(function(item) {
+          labelsContent += '<li class="list-group-item">' + item.label + ': ' + item.count + '</li>';
+        });
+        labelsContent += '</ul>';
+        $('#labelsContent').html(labelsContent);
+      } else {
+        $('#labelsContent').html('<p>Please upload and process a file to view labels.</p>');
+      }
+    }
+
+    $('#viewAnnotationsBtn').on('click', function() {
+      if (!file) {
+        alert('Please select a file first.');
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append('file', file);
+
+      $('#annotationsLoading').show();
+
+      $.ajax({
+        url: 'http://localhost:5000/annotations',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          annotations = response;
+          alert('Annotations fetched successfully.');
+          updateAnnotationsList();
+        },
+        error: function(xhr, status, error) {
+          alert('Error fetching annotations.');
+        },
+        complete: function() {
+          $('#annotationsLoading').hide();
+        }
+      });
+    });
+
+    function updateAnnotationsList() {
+      if (annotations) {
+        var annotationsContent = '<ul class="list-group">';
+        annotations.forEach(function(item) {
+          annotationsContent += '<li class="list-group-item">';
+          annotationsContent += 'Image ID: ' + item['Image ID'] + ', ';
+          annotationsContent += 'Category ID: ' + item['Category ID'] + ', ';
+          annotationsContent += 'Segmentation: ' + JSON.stringify(item['Segmentation']);
+          annotationsContent += '</li>';
+        });
+        annotationsContent += '</ul>';
+        $('#annotationsList').html(annotationsContent);
+      } else {
+        $('#annotationsList').html('<p>No annotations to display.</p>');
+      }
+    }
+
+    $('#searchLabelBtn').on('click', function() {
+      var label = $('#searchLabelInput').val();
+      if (!file) {
+        alert('Please select a file first.');
+        return;
+      }
+      if (!label) {
+        alert('Please enter a label to search.');
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append('file', file);
+
+      $('#searchLoading').show();
+
+      $.ajax({
+        url: 'http://localhost:5000/search?label=' + encodeURIComponent(label),
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          searchResults = response;
+          alert('Search completed.');
+          updateSearchResults();
+        },
+        error: function(xhr, status, error) {
+          alert('Error searching labels.');
+        },
+        complete: function() {
+          $('#searchLoading').hide();
+        }
+      });
+    });
+
+    function updateSearchResults() {
+      if (searchResults) {
+        var searchContent = '';
+        searchContent += '<h4>Search Results for "' + searchResults.label + '"</h4>';
+        searchContent += '<p>Number of Images: ' + searchResults.image_count + '</p>';
+        searchContent += '<ul class="list-group">';
+        var images = searchResults.result_images;
+        for (var key in images) {
+          if (images.hasOwnProperty(key)) {
+            var item = images[key];
+            searchContent += '<li class="list-group-item">';
+            searchContent += 'File Name: ' + item.file_name + ', Labels: ' + item.labels.join(', ');
+            searchContent += '</li>';
+          }
+        }
+        searchContent += '</ul>';
+        $('#searchResults').html(searchContent);
+      } else {
+        $('#searchResults').html('<p>No search results to display.</p>');
+      }
+    }
+
+    function updateRemoveLabelsList() {
+      if (labels) {
+        selectedLabels = []; // Reset selected labels
+        var removeLabelsContent = '';
+        labels.labels.forEach(function(item) {
+          var label = item.label;
+          var count = item.count;
+          removeLabelsContent += '<div class="form-check">';
+          removeLabelsContent += '<input class="form-check-input remove-label-checkbox" type="checkbox" value="' + label + '" id="removeLabel_' + label + '">';
+          removeLabelsContent += '<label class="form-check-label" for="removeLabel_' + label + '">' + label + ' (' + count + ')</label>';
+          removeLabelsContent += '</div>';
+        });
+        $('#removeLabelsList').html(removeLabelsContent);
+
+        // Add event listener to checkboxes
+        $('.remove-label-checkbox').on('change', function() {
+          var label = $(this).val();
+          if ($(this).is(':checked')) {
+            selectedLabels.push(label);
+          } else {
+            selectedLabels = selectedLabels.filter(function(item) {
+              return item !== label;
+            });
+          }
+        });
+      } else {
+        $('#removeLabelsList').html('<p>Please upload and process a file to view labels.</p>');
+      }
+    }
+
+    $('#removeLabelsBtn').on('click', function() {
+      if (!file) {
+        alert('Please select a file first.');
+        return;
+      }
+      if (selectedLabels.length === 0) {
+        alert('Please select labels to remove.');
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append('file', file);
+      selectedLabels.forEach(function(label) {
+        formData.append('categories_to_remove', label);
+      });
+
+      $('#removeLoading').show();
+
+      $.ajax({
+        url: 'http://localhost:5000/remove_labels',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          downloadUrl = 'http://localhost:5000' + response.file_url;
+          alert('Labels removed successfully.');
+          $('#downloadLink').attr('href', downloadUrl);
+          $('#downloadModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+          alert('Error removing labels.');
+        },
+        complete: function() {
+          $('#removeLoading').hide();
+        }
+      });
+    });
+
+    $('#mergeLabelsBtn').on('click', function() {
+      if (!file) {
+        alert('Please select a file first.');
+        return;
+      }
+
+      var mergeLabels = $('#mergeLabelsInput').val();
+      var mergeTargetLabel = $('#mergeTargetLabelInput').val();
+
+      if (!mergeLabels || !mergeTargetLabel) {
+        alert('Please enter labels to merge and the target label.');
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('annotations_to_merge', mergeLabels);
+      formData.append('merged_category_name', mergeTargetLabel);
+
+      $('#mergeLoading').show();
+
+      $.ajax({
+        url: 'http://localhost:5000/merge_labels',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          downloadUrl = 'http://localhost:5000' + response.file_url;
+          alert('Labels merged successfully.');
+          $('#downloadLink').attr('href', downloadUrl);
+          $('#downloadModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+          alert('Error merging labels.');
+        },
+        complete: function() {
+          $('#mergeLoading').hide();
+        }
+      });
+    });
+
+    $('#renameLabelsBtn').on('click', function() {
+      if (!file) {
+        alert('Please select a file first.');
+        return;
+      }
+
+      var renameMapping = $('#renameMappingInput').val();
+
+      if (!renameMapping) {
+        alert('Please enter the rename mapping in JSON format.');
+        return;
+      }
+
+      var mapping;
+      try {
+        mapping = JSON.parse(renameMapping);
+      } catch (error) {
+        alert('Invalid JSON format.');
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('rename_mapping', JSON.stringify(mapping));
+
+      $('#renameLoading').show();
+
+      $.ajax({
+        url: 'http://localhost:5000/rename_labels',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          downloadUrl = 'http://localhost:5000' + response.file_url;
+          alert('Labels renamed successfully.');
+          $('#downloadLink').attr('href', downloadUrl);
+          $('#downloadModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+          alert('Error renaming labels.');
+        },
+        complete: function() {
+          $('#renameLoading').hide();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

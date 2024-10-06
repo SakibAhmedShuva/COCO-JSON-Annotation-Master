@@ -9,6 +9,13 @@ A powerful web application for effortlessly managing, analyzing, and modifying C
 
 ![COCO Json Annotation Master Demo](https://via.placeholder.com/800x400?text=COCO+Json+Annotation+Master+Demo)
 
+# 🏷️ Repository Includes:
+- Flask API
+- React-based front end
+- HTML-based front end
+
+You can run the API using whichever front end (React/HTML) you prefer.
+
 ## ✨ Features
 
 - 📊 **View & Analyze Annotations**: Instantly visualize all annotations with detailed information
@@ -47,7 +54,9 @@ pip install -r requirements.txt
 python app.py
 ```
 
-3. Set up the frontend / run the react app:
+3. Set up the frontend (react/html):
+# Run the react app
+
 ```bash
 #Go to the app folder
 cd "react app"
@@ -60,6 +69,11 @@ npm start
 ```
 
 Visit `http://localhost:3000` to access the web interface.
+
+
+# Run the html app
+Open app.html
+
 
 ## 💻 Usage
 

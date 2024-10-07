@@ -1,4 +1,4 @@
-# 🏷️ COCO Json Annotation Master
+# 🏷️ COCO JSON Annotation Master
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/)
@@ -6,9 +6,10 @@
 [![Flask](https://img.shields.io/badge/Flask-2.0%2B-green?logo=flask)](https://flask.palletsprojects.com/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 
-A powerful web application for effortlessly managing, analyzing, and modifying COCO format JSON annotations. Perfect for machine learning engineers and computer vision researchers working with datasets from CVAT, Roboflow, or any COCO-formatted annotations.
+A powerful web application for effortlessly managing, analyzing, and modifying any COCO format JSON annotations, including bounding boxes and segmentation. Perfect for machine learning engineers and computer vision researchers working with datasets from CVAT, Roboflow, or any COCO-formatted annotations.
 
-![COCO Json Annotation Master Demo](https://via.placeholder.com/800x400?text=COCO+Json+Annotation+Master+Demo)
+![COCO-JSON-Annotation-Master ](https://github.com/user-attachments/assets/a43c46c5-cba2-490e-93fe-acb509eea721)
+
 
 # 🏷️ Repository Includes:
 - Flask API

@@ -283,16 +283,23 @@ For file downloads:
 - Use the "Save Response" > "Save to a file" option in Postman to save the modified JSON file
 
 ## 📖 React App Screenshot
+
+## View Annotations
 ![{D973DBB1-2872-4486-8781-BEA8FBA7A8D0}](https://github.com/user-attachments/assets/daafac21-bfef-4bbf-a9ff-0d912444ae4e)
 
+## View Labels
 ![{A8F1DB94-DCC8-47CE-9884-8975A2D016D0}](https://github.com/user-attachments/assets/ef21627f-c963-451f-96da-da32f3d5ed27)
 
+## Search Labels
 ![{4DD78F4B-4E90-4AD7-8EC4-6ED7EED08C9A}](https://github.com/user-attachments/assets/618d8090-9a43-4820-ad09-3dd58c7a7938)
 
+## Remove Labels
 ![{F9268430-62E9-463E-908B-D8DADAF7BD9B}](https://github.com/user-attachments/assets/e17f4f3b-c707-43c6-8df5-3d23552be511)
 
+## Merge Labels
 ![{1B8A0EA9-B674-4996-9F69-58C82FF5512E}](https://github.com/user-attachments/assets/1a1c5da4-62d5-40c7-b3c2-3bb6c6c9c815)
 
+## Rename Labels
 ![{C925E786-9FA6-40F0-8F98-2C56FF4E645C}](https://github.com/user-attachments/assets/6576cb49-8024-4097-a480-d47f32f4b7e9)
 
 

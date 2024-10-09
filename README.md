@@ -6,17 +6,17 @@
 [![Flask](https://img.shields.io/badge/Flask-2.0%2B-green?logo=flask)](https://flask.palletsprojects.com/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 
-A powerful web application for effortlessly managing, analyzing, and modifying any COCO format JSON annotations, including bounding boxes and segmentation. Perfect for machine learning engineers and computer vision researchers working with datasets from CVAT, Roboflow, or any COCO-formatted annotations.
+A powerful web application for effortlessly managing, analyzing, and modifying COCO format JSON annotations, including bounding boxes and segmentation. Perfect for machine learning engineers and computer vision researchers working with datasets from CVAT, Roboflow, or any COCO-formatted annotations.
 
-![COCO-JSON-Annotation-Master ](https://github.com/user-attachments/assets/a43c46c5-cba2-490e-93fe-acb509eea721)
+![COCO-JSON-Annotation-Master](https://github.com/user-attachments/assets/a43c46c5-cba2-490e-93fe-acb509eea721)
 
-
-# 🏷️ Repository Includes:
+## 📋 Repository Contents
 - Flask API
-- React-based front end
-- HTML-based front end
+- Docker
+- React-based frontend
+- HTML-based frontend
 
-You can run the API using whichever front end (React/HTML) you prefer.
+Choose between React or HTML frontend based on your preferences.
 
 ## ✨ Features
 
@@ -44,10 +44,23 @@ cd COCO-Json-Annotation-Master
 ```
 
 2. Set up the backend:
+
+#### Option 1: Using Docker
+```bash
+docker compose build
+docker compose up
+```
+
+#### Option 2: Running Flask App Directly
 ```bash
 # Create a virtual environment (optional but recommended)
 python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
+# Activate the virtual environment
+# On Unix or MacOS:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
 
 # Install Python dependencies
 pip install -r requirements.txt
@@ -56,11 +69,11 @@ pip install -r requirements.txt
 python app.py
 ```
 
-3. Set up the frontend (react/html):
-# Run the react app
+3. Set up the frontend:
 
+#### React App
 ```bash
-#Go to the app folder
+# Go to the app folder
 cd "react app"
 
 # Install Node dependencies
@@ -72,10 +85,8 @@ npm start
 
 Visit `http://localhost:3000` to access the web interface.
 
-
-# Run the html app
-Open app.html
-
+#### HTML App
+Simply open `app.html` in your browser.
 
 ## 💻 Usage
 

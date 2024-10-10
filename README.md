@@ -316,12 +316,11 @@ For file downloads:
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
+Contributions to this project are welcome. Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create a new branch (`git checkout -b feature/your-feature-name`)
+3. Make your changes and commit them (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin feature/your-feature-name`)
 5. Open a Pull Request
 
 ## 📄 License
@@ -331,8 +330,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - Inspired by the needs of the computer vision community
-- Built with React and Flask
+- Built with Flask, docker, React, and html
 
-## 📬 Contact
+## 🌐 Connect with Me
 
-Project Link: [https://github.com/SakibAhmedShuva/COCO-JSON-Annotation-Master](https://github.com/SakibAhmedShuva/COCO-JSON-Annotation-Master)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/sakibahmedai)
+[![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)](https://kaggle.com/skbahmed)
+[![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black)](https://leetcode.com/SakibAhmedShuva)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sakibahmedbup@gmail.com)

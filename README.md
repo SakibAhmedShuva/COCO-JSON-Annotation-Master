@@ -84,6 +84,16 @@ npm install
 npm start
 ```
 
+In case you are facing problem:
+
+```
+nvm install latest
+nvm use latest
+
+npm install
+npm start
+```
+
 Visit `http://localhost:3000` to access the web interface.
 
 #### HTML App

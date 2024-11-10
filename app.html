@@ -179,6 +179,8 @@
         processData: false,
         contentType: false,
         success: function(response) {
+      // Sort the labels alphabetically by label name
+      response.labels.sort((a, b) => a.label.localeCompare(b.label));
           labels = response;
           alert('Labels fetched successfully.');
           // Update labelsContent

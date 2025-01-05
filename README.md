@@ -7,7 +7,7 @@
 [![React](https://img.shields.io/badge/React-18.0%2B-blue?logo=react)](https://reactjs.org/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 
-A powerful web application for effortlessly managing, analyzing, and modifying COCO format JSON annotations, including bounding boxes and segmentation. Perfect for machine learning engineers and computer vision researchers working with datasets from CVAT, Roboflow, or any COCO-formatted annotations.
+A powerful tool for managing, analyzing, visualizing and modifying COCO format JSON annotations, including bounding boxes and segmentation. Perfect for machine learning engineers and computer vision researchers working with datasets from CVAT, Roboflow, or any COCO-formatted annotations.
 
 ![COCO-JSON-Annotation-Master](https://github.com/user-attachments/assets/a43c46c5-cba2-490e-93fe-acb509eea721)
 
@@ -21,9 +21,17 @@ Choose between React or HTML frontend based on your preferences.
 
 ## ✨ Features
 
-- 📊 **View & Analyze Annotations**: Instantly visualize all annotations with detailed information
+- 📊 **View & Analyze Annotations**: 
+  - Instantly visualize all annotations with detailed information
+  - Advanced visualization of bounding boxes and segmentation masks
+  - Interactive image display with customizable visualization options
 - 🏷️ **Label Management**: List, count, and search through your dataset labels
-- 🔍 **Smart Search**: Find images containing specific labels
+- 🔍 **Enhanced Search & Visualization**: 
+  - Find images containing specific labels
+  - Visualize search results with customizable display options
+  - Control bounding box, segmentation, and label visibility
+  - Filter results to show only searched categories
+  - Pagination support for large result sets
 - ✂️ **Remove Labels**: Selectively remove categories and their annotations
 - 🔄 **Merge Labels**: Combine multiple categories into one
 - ✏️ **Rename Labels**: Batch rename categories with a simple JSON mapping
@@ -100,6 +108,41 @@ Visit `http://localhost:3000` to access the web interface.
 Simply open `app.html` in your browser.
 
 ## 💻 Usage
+
+### Python Interface
+
+The package now includes a powerful `COCOSearchVisualizer` class for advanced visualization:
+
+```python
+from coco_visualizer import COCOSearchVisualizer
+
+# Initialize the visualizer
+visualizer = COCOSearchVisualizer(data, image_dir)
+
+# Search and visualize with customizable options
+visualizer.search_and_visualize(
+    'FrontWheel',                # Label to search for
+    view_image=True,             # Display images
+    show_bbox=True,              # Show bounding boxes
+    show_segmentation=True,      # Show segmentation masks
+    show_labels=True,            # Show category labels
+    show_only_searched=True,     # Show only searched categories
+    start_idx=1,                 # Starting result index
+    end_idx=5,                   # Ending result index
+    strict=False                 # Exact match search
+)
+```
+
+### Visualization Options
+
+The `COCOSearchVisualizer` class provides the following visualization features:
+
+- **Bounding Boxes**: Toggle visibility of bounding boxes
+- **Segmentation Masks**: Toggle visibility of segmentation masks with transparency
+- **Category Labels**: Toggle visibility of category names
+- **Filtered View**: Option to show only searched categories
+- **Pagination**: Control the number of results displayed
+- **Search Modes**: Support for exact or partial label matching
 
 ### Web Interface
 

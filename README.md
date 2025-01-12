@@ -9,6 +9,8 @@
 
 A powerful tool for managing, analyzing, visualizing and modifying COCO format JSON annotations, including bounding boxes and segmentation. Perfect for machine learning engineers and computer vision researchers working with datasets from CVAT, Roboflow, or any COCO-formatted annotations.
 
+![COCO-JSON-Annotation-Master ](https://github.com/user-attachments/assets/eb41b67b-9d74-4211-8770-f32f4709c03a)
+
 ![COCO-JSON-Annotation-Master](https://github.com/user-attachments/assets/a43c46c5-cba2-490e-93fe-acb509eea721)
 
 ## 📋 Repository Contents

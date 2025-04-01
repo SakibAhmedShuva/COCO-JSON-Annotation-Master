@@ -6,7 +6,7 @@ from flask_cors import CORS
 from collections import defaultdict
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # Ensure the "outputs" folder exists
 OUTPUTS_FOLDER = "outputs"
@@ -24,6 +24,11 @@ def save_json_to_file(data, file_name):
     with open(file_path, 'w') as f:
         json.dump(data, f, indent=4)
     return file_path
+
+# Add this route to serve the HTML file at the root endpoint
+@app.route('/', methods=['GET'])
+def serve_app():
+    return send_file('app.html')
 
 # 1. Check and Display All Annotations
 @app.route('/annotations', methods=['POST'])
